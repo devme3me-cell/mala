@@ -23,6 +23,8 @@ export default function AdminDashboard() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAmount, setFilterAmount] = useState('all');
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -43,12 +45,18 @@ export default function AdminDashboard() {
 
   const loadEntries = async () => {
     try {
+      setIsLoading(true);
+      setLoadError(null);
       const data = await getEntries();
       setEntries(data);
-      console.log('Loaded entries:', data.length);
+      console.log('✅ Loaded entries from Supabase:', data.length, 'entries');
+      console.log('Sample entry:', data[0]);
     } catch (error) {
-      console.error('Error loading entries:', error);
+      console.error('❌ Error loading entries:', error);
+      setLoadError(error instanceof Error ? error.message : 'Unknown error');
       setEntries([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -187,6 +195,20 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* Error Display */}
+        {loadError && (
+          <div className="luxury-card rounded-xl p-4 mb-6 bg-red-500/10 border border-red-500/30">
+            <div className="flex items-center gap-2 text-red-400">
+              <X className="w-5 h-5" />
+              <div>
+                <p className="font-semibold">無法載入資料</p>
+                <p className="text-sm text-red-400/70">{loadError}</p>
+                <p className="text-xs text-red-400/50 mt-1">請檢查 Supabase 連線設定</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Filters and Actions */}
         <div className="luxury-card rounded-xl p-4 mb-6">
           <div className="flex flex-col md:flex-row gap-4">
@@ -238,10 +260,16 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {filteredEntries.length === 0 ? (
+                {isLoading ? (
                   <tr>
                     <td colSpan={6} className="text-center py-8 text-yellow-500/50">
-                      暫無記錄
+                      載入中...
+                    </td>
+                  </tr>
+                ) : filteredEntries.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="text-center py-8 text-yellow-500/50">
+                      {loadError ? '無法載入資料' : '暫無記錄'}
                     </td>
                   </tr>
                 ) : (
