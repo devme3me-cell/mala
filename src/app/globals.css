@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 5%;
+    --foreground: 43 100% 85%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 43 100% 85%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 43 100% 85%;
+
+    --primary: 43 100% 50%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 43 50% 30%;
+    --secondary-foreground: 43 100% 85%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 43 50% 65%;
+
+    --accent: 43 100% 45%;
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 43 50% 25%;
+    --input: 0 0% 15%;
+    --ring: 43 100% 50%;
+
+    --radius: 0.5rem;
+
+    --gold: 43 100% 50%;
+    --gold-light: 43 100% 65%;
+    --gold-dark: 43 100% 35%;
+    --black-primary: 0 0% 5%;
+    --black-secondary: 0 0% 10%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background:
+      linear-gradient(135deg, #6B2020 0%, #5A1818 25%, #6B2020 50%, #5A1818 75%, #6B2020 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@
+}
+
+/* Glass Effect - More Transparent */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  position: relative;
+  z-index: 10;
+}
+
+.luxury-card {
+  background: rgba(90, 24, 24, 0.6);
+  border: 1px solid rgba(180, 60, 60, 0.4);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: transparent;
+  opacity: 0;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.luxury-button {
+  background: linear-gradient(135deg, #B8956A, #A67C52, #B8956A);
+  color: #8B3A3A;
+  border: 1px solid rgba(184, 149, 106, 0.5);
+  font-weight: 700;
+  transition: all 0.15s ease;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-button::before {
+  display: none;
+}
+
+.luxury-button:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(184, 149, 106, 0.3);
+  background: linear-gradient(135deg, #C9A67A, #B68C5E, #C9A67A);
+}
+
+.luxury-input {
+  background: rgba(60, 15, 15, 0.8);
+  border: 1px solid rgba(180, 60, 60, 0.3);
+  color: #D4AF37;
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  transition: all 0.15s ease;
+}
+
+.luxury-input::placeholder {
+  color: rgba(212, 175, 55, 0.5);
+}
+
+.luxury-input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+  animation: none;
+}
+
+/* Step indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: rgba(180, 60, 60, 0.3);
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid rgba(180, 60, 60, 0.6);
+  color: rgba(212, 175, 55, 0.7);
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: all 0.15s ease;
+}
+
+.step.active .step-number {
+  background: #B8956A;
+  color: #3A1818;
+  border-color: #B8956A;
+  box-shadow: 0 0 15px rgba(184, 149, 106, 0.5);
+  animation: none;
+}
+
+.step-text {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(212, 175, 55, 0.6);
+}
+
+.step.active .step-text {
+  color: rgba(212, 175, 55, 0.9);
+  font-weight: 600;
+}
+
+/* Upload area */
+.upload-area {
+  background: rgba(60, 15, 15, 0.6);
+  border: 1px dashed rgba(180, 60, 60, 0.4);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-radius: 1rem;
+  padding: 3rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.upload-area::after {
+  display: none;
+}
+
+.upload-area:hover {
+  border-color: rgba(184, 149, 106, 0.5);
+  background: rgba(60, 15, 15, 0.8);
+}
+
+.upload-area.dragover {
+  border-color: rgba(184, 149, 106, 0.6);
+  background: rgba(184, 149, 106, 0.1);
+}
+
+/* Wheel styles */
+.wheel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.wheel-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: none;
+  animation: none;
+}
+
+.btn-spin {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+}
+
+.btn-spin::before {
+  display: none;
+}
+
+.btn-spin:hover:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-spin:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Amount selection */
+.amount-selection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .amount-selection {
+    grid-template-columns: 1fr;
+  }
+}
+
+.amount-option {
+  padding: 2rem;
+  background: rgba(60, 15, 15, 0.6);
+  border: 1px solid rgba(180, 60, 60, 0.3);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.amount-option::before {
+  display: none;
+}
+
+.amount-option:hover {
+  border-color: rgba(184, 149, 106, 0.5);
+  transform: none;
+  box-shadow: none;
+  background: rgba(60, 15, 15, 0.8);
+}
+
+.amount-option.selected {
+  background: rgba(184, 149, 106, 0.2);
+  border-color: rgba(184, 149, 106, 0.6);
+  box-shadow: 0 0 15px rgba(184, 149, 106, 0.3);
+  animation: none;
+}
+
+.amount-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff, #fef08a, #ffd700);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  animation: none;
+}
+
+.amount-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+/* Crown - no animation */
+.crown-icon {
+  filter: none;
+  animation: none;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #FFD700, #FFF4B0, #FFD700);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: none;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+  background-size: 100% 100%;
+  animation: none;
+}
+
+.accent-ring {
+  display: none;
+}
